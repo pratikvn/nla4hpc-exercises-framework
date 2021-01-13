@@ -6,11 +6,11 @@ performance benchmarking.
 
 ## Build instructions
 
-We use `cmake` to build the framework. Therefore, all you need to do is setup and build is to clone this repository
-and within the directory,
+We use `cmake` to build the framework. Therefore, all you need to do is setup and build is
+to clone this repository and within the directory,
 
 ```
-mkdir build && cd build && cmake -DNLA4HPC_KIT_UNAME=<your kit uname> -DNLA4HPC_HW=<the HW number you are trying to compile>" .. 
+mkdir build && cd build && cmake -DNLA4HPC_KIT_UNAME=<your kit uname> -DNLA4HPC_HW=<the HW number you are trying to compile> .. 
 ```
 
 ### Adding your own code.
@@ -63,8 +63,13 @@ All homeworks have the following structure:
        \|-- hwX.cpp (contains the benchmarks for the hwX/hwX.cpp functions, update your benchmarks here)
  ```
  
-See the instruction sheet for each of the HW for more details and the README.md files within the ``hwX` folders should also provide you with more information. 
+See the instruction sheet for each of the HW for more details and the README.md files within the `hwX` folders should also provide you with more information. 
 
+### Working with CUDA and GPUs
+
+Homeworks 5 and 6 require the [CUDA Toolkit](https://docs.nvidia.com/cuda/index.html). A helper library called the [`CudaArchitectureSelector`](https://github.com/ginkgo-project/CudaArchitectureSelector) is used to detect the existing CUDA architectures and pass the appropriate flags. You can tweak the architectures by modifying the `NLA4HPC_CUDA_ARCHITECTURES` flag which is set to `Auto` by default. 
+
+The [CUDA Programming guide](https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html) has detailed information on how to program on NVIDIA GPUs. You can also refer to the corresponding lecture slides for more references. 
 
 ### Some general tips
 

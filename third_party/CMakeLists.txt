@@ -1,4 +1,4 @@
-if(GINKGO_BUILD_CUDA)
+if( (NLA4HPC_HW STREQUAL "5") OR (NLA4HPC_HW STREQUAL "6"))
     enable_language(CUDA)
     add_subdirectory(CudaArchitectureSelector)
 endif()

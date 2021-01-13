@@ -6,7 +6,8 @@ include(cmake/build_type_helpers.cmake)
 
 # Configuration options
 option(NLA4HPC_BUILD_TESTS "Generate build files for unit tests" ON)
-option(NLA4HPC_BUILD_CUDA "Compile kernels for NVIDIA GPUs" OFF)
+set(NLA4HPC_CUDA_ARCHITECTURES "Auto" CACHE STRING
+    "A list of target NVIDIA GPU achitectures. See README.md for more detail.")
 option(NLA4HPC_DEVEL_TOOLS "Install support for some developer tools" OFF)
 OPTION(NLA4HPC_GENERATE_BENCHMARK "Build benchmarks using Google benchmark suite" OFF)
 set(NLA4HPC_HW "0" CACHE STRING
@@ -15,6 +16,9 @@ set(NLA4HPC_KIT_UNAME "uxxxx0" CACHE STRING
   "Set your KIT username, uxxxx0, default: uxxxx0")
 option(NLA4HPC_SKIP_DEPENDENCY_UPDATE
   "Do not update dependencies each time the project is rebuilt" ON)
+
+# use external ginkgo whenever possible.
+set(NLA4HPC_USE_EXTERNAL_GINKGO 1)
 
 if(NLA4HPC_BUILD_TESTS)
   # Configure CTest

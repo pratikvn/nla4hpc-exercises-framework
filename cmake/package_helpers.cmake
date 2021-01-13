@@ -42,12 +42,15 @@ function(ginkgo_load_git_package package_name package_url package_tag)
   endif()
 endfunction()
 
-function(ginkgo_load_git_package_and_install package_name package_url package_tag)
+set(PACKAGE_DOWNLOADER_SCRIPT_NO_INSTALL
+  "${CMAKE_CURRENT_LIST_DIR}/NoInstallDownloadCMakeLists.txt.in")
+
+function(ginkgo_load_git_package_no_install package_name package_url package_tag)
   set(GINKGO_THIRD_PARTY_BUILD_TYPE "Debug")
   if (CMAKE_BUILD_TYPE MATCHES "[Rr][Ee][Ll][Ee][Aa][Ss][Ee]")
     set(GINKGO_THIRD_PARTY_BUILD_TYPE "Release")
   endif()
-  configure_file(${PACKAGE_DOWNLOADER_SCRIPT}
+  configure_file(${PACKAGE_DOWNLOADER_SCRIPT_NO_INSTALL}
     download/CMakeLists.txt)
   execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
     RESULT_VARIABLE result
@@ -61,17 +64,11 @@ function(ginkgo_load_git_package_and_install package_name package_url package_ta
     execute_process(COMMAND ${CMAKE_COMMAND} --build . --config Debug
       RESULT_VARIABLE result
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/download)
-    execute_process(COMMAND ${CMAKE_COMMAND} --install . --config Debug
-      RESULT_VARIABLE result
-      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/download)
     if(result)
       message(FATAL_ERROR
         "Build Debug step for ${package_name}/download failed: ${result}")
     endif()
     execute_process(COMMAND ${CMAKE_COMMAND} --build . --config Release
-      RESULT_VARIABLE result
-      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/download)
-    execute_process(COMMAND ${CMAKE_COMMAND} --install . --config Release
       RESULT_VARIABLE result
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/download)
     if(result)
@@ -86,9 +83,6 @@ function(ginkgo_load_git_package_and_install package_name package_url package_ta
       message(FATAL_ERROR
         "Build step for ${package_name}/download failed: ${result}")
     endif()
-    execute_process(COMMAND ${CMAKE_COMMAND} --install .
-      RESULT_VARIABLE result
-      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/download)
   endif()
 endfunction()
 
