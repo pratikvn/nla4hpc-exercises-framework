@@ -28,7 +28,7 @@ jobs:
         cd ginkgo
         mkdir build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=${HOME}/install -DGINKGO_BUILD_BENCHMARKS=off -DGINKGO_BUILD_EXAMPLES=off -DGINKGO_BUILD_TESTS=off  -DGINKGO_BUILD_CUDA=off -DGINKGO_BUILD_OMP=off ..
+        cmake -DCMAKE_INSTALL_PREFIX=${HOME}/install -DGINKGO_BUILD_HWLOC=off -DGINKGO_BUILD_BENCHMARKS=off -DGINKGO_BUILD_EXAMPLES=off -DGINKGO_BUILD_TESTS=off  -DGINKGO_BUILD_CUDA=off -DGINKGO_BUILD_OMP=off ..
         make -j10
         make install
         export Ginkgo_DIR=${HOME}/install
