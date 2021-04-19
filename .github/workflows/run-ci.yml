@@ -8,33 +8,18 @@ jobs:
       fail-fast: false
 
     name: "uxxxx0/hw0"
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
+    container: pratikvn/ubuntu-ginkgo-develop
     
     steps:
     - uses: actions/checkout@v2
-    - name: update 
-      run: |
-        sudo apt-get update
     - name: info
       run: |
         g++ -v
         cmake --version
     - name: build 
       run: |
-        pushd .
-        cd ${HOME}
-        mkdir install
-        git clone https://github.com/ginkgo-project/ginkgo.git
-        cd ginkgo
-        mkdir build
-        cd build
-        cmake -DCMAKE_INSTALL_PREFIX=${HOME}/install -DGINKGO_BUILD_HWLOC=off -DGINKGO_BUILD_BENCHMARKS=off -DGINKGO_BUILD_EXAMPLES=off -DGINKGO_BUILD_TESTS=off  -DGINKGO_BUILD_CUDA=off -DGINKGO_BUILD_OMP=off ..
-        make -j10
-        make install
-        export Ginkgo_DIR=${HOME}/install
-        export LD_LIBRARY_PATH=${HOME}/install/lib:$LD_LIBRARY_PATH
         echo $Ginkgo_DIR
-        popd
         mkdir build
         cd build/
         cmake -DCMAKE_PREFIX_PATH=${HOME}/install -DNLA4HPC_HW=0 ..
